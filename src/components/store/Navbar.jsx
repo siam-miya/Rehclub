@@ -1,3 +1,6 @@
+
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,14 +13,21 @@ import {
 } from "lucide-react";
 
 import NavLinks from "./NavLinks";
+import { useStore, selectCartCount } from "@/stores/useStore";
 
 const Navbar = () => {
+  const cartCount = useStore(selectCartCount);
+  const wishlistCount = useStore((state) => state.wishlist.length);
+
+  const formatCount = (count) => (count > 99 ? "99+" : count);
+
+  const badgeClass =
+    "absolute -right-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 text-[10px] font-semibold leading-none text-white";
+
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200/80 bg-white">
       <div className="container px-4 sm:px-6 xl:px-10">
         <div className="flex min-h-[88px] items-center gap-7 xl:gap-9">
-
-          {/* Logo */}
           <Link
             href="/"
             aria-label="Rehclub home"
@@ -33,12 +43,10 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* Navigation */}
-          <div className="hidden shrink-0 lg:block ml-20">
+          <div className="ml-20 hidden shrink-0 lg:block">
             <NavLinks />
           </div>
 
-          {/* Search */}
           <form
             action="/search"
             method="GET"
@@ -70,10 +78,7 @@ const Navbar = () => {
             </div>
           </form>
 
-          {/* Actions */}
           <div className="ml-auto flex shrink-0 items-center gap-3 sm:gap-4 xl:ml-0 xl:gap-5">
-
-            {/* Search on smaller screens */}
             <Link
               href="/search"
               aria-label="Search"
@@ -82,7 +87,6 @@ const Navbar = () => {
               <Search size={22} strokeWidth={1.6} />
             </Link>
 
-            {/* Order Tracking */}
             <Link
               href="/order-tracking"
               className="hidden items-center gap-2 text-gray-700 transition-colors hover:text-black md:flex"
@@ -95,25 +99,30 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* Wishlist */}
+            {/* Wishlist count: 0 হলেও দেখাবে */}
             <Link
               href="/wishlist"
-              aria-label="Wishlist"
-              className="flex h-10 w-8 items-center justify-center text-gray-800 transition-colors hover:text-gray-500"
+              aria-label={`Wishlist, ${wishlistCount} items`}
+              className="relative flex h-10 w-8 items-center justify-center text-gray-800 transition-colors hover:text-gray-500"
             >
               <Heart size={22} strokeWidth={1.6} />
+              <span className={badgeClass}>
+                {formatCount(wishlistCount)}
+              </span>
             </Link>
 
-            {/* Cart */}
+            {/* Cart count: 0 হলেও দেখাবে */}
             <Link
               href="/cart"
-              aria-label="Shopping cart"
-              className="flex h-10 w-8 items-center justify-center text-gray-800 transition-colors hover:text-gray-500"
+              aria-label={`Shopping cart, ${cartCount} items`}
+              className="relative flex h-10 w-8 items-center justify-center text-gray-800 transition-colors hover:text-gray-500"
             >
               <ShoppingCart size={22} strokeWidth={1.6} />
+              <span className={badgeClass}>
+                {formatCount(cartCount)}
+              </span>
             </Link>
 
-            {/* Sign In */}
             <Link
               href="/sign-in"
               className="flex h-10 items-center gap-2 rounded-lg border border-gray-300 px-3.5 text-gray-800 transition-colors hover:border-black hover:bg-black hover:text-white sm:px-4"
@@ -123,7 +132,6 @@ const Navbar = () => {
                 Sign In
               </span>
             </Link>
-
           </div>
         </div>
       </div>
