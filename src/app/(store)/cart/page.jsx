@@ -33,10 +33,10 @@ const Cart = () => {
   return (
     <main className="min-h-screen bg-gray-50/50 py-8 sm:py-10">
       <div className="container w-full px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb & Heading */}
+
         <div className="mb-6">
           <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <Link href="/" className="cursor-pointer transition hover:text-black">
+            <Link href="/" className="transition hover:text-black">
               Home
             </Link>
             <span>/</span>
@@ -70,7 +70,7 @@ const Cart = () => {
 
             <Link
               href="/products"
-              className="mt-6 inline-flex h-11 cursor-pointer items-center justify-center gap-2 bg-black px-6 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-gray-800"
+              className="mt-6 inline-flex h-11 items-center justify-center gap-2 bg-black px-6 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-gray-800"
             >
               Continue Shopping
               <ArrowRight size={14} />
@@ -78,7 +78,7 @@ const Cart = () => {
           </section>
         ) : (
           <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px] lg:gap-8">
-            {/* Cart Items */}
+
             <section className="min-w-0 overflow-hidden border border-gray-200 bg-white">
               <div className="w-full overflow-x-auto">
                 <table className="w-full min-w-[680px] border-collapse text-left">
@@ -95,19 +95,19 @@ const Cart = () => {
                   <tbody className="divide-y divide-gray-200 text-xs">
                     {cart.map((item) => (
                       <tr
-                        key={item.productId}
+                        key={item.cartItemId}
                         className="transition-colors hover:bg-gray-50/50"
                       >
-                        {/* Product */}
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-3">
                             <div className="relative h-16 w-14 shrink-0 border border-gray-200 bg-gray-50">
+
                               <button
                                 type="button"
-                                onClick={() => removeFromCart(item.productId)}
+                                onClick={() => removeFromCart(item.cartItemId)}
                                 aria-label={`Remove ${item.name} from cart`}
                                 title="Remove item"
-                                className="absolute -left-2 -top-2 z-10 flex h-5 w-5 cursor-pointer items-center justify-center bg-red-600 text-white rounded-full shadow-sm transition hover:bg-red-700"
+                                className="absolute -left-2 -top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-white shadow-sm transition hover:bg-red-700"
                               >
                                 <X size={12} strokeWidth={3} />
                               </button>
@@ -126,27 +126,41 @@ const Cart = () => {
                               <h2 className="line-clamp-2 text-xs font-medium text-gray-900 sm:text-sm">
                                 {item.name}
                               </h2>
+
+                              {item.color && (
+                                <p className="mt-1 text-[11px] text-gray-500">
+                                  Color: {item.color}
+                                </p>
+                              )}
+
+                              {item.size && (
+                                <p className="mt-1 text-[11px] text-gray-500">
+                                  Size: {item.size}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </td>
 
-                        {/* Price */}
                         <td className="px-4 py-4 text-center font-medium text-gray-700">
                           {formatPrice(item.price)}
                         </td>
 
-                        {/* Quantity */}
                         <td className="px-4 py-4">
                           <div className="flex items-center justify-center">
                             <div className="inline-flex items-center border border-gray-300 bg-white">
+
                               <button
                                 type="button"
                                 aria-label="Decrease quantity"
                                 disabled={item.quantity <= 1}
                                 onClick={() =>
-                                  updateQuantity(item.productId, item.quantity - 1)
+                                  updateQuantity(
+                                    item.cartItemId,
+                                    item.quantity - 1
+                                  )
                                 }
-                                className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+                                className="flex h-8 w-8 items-center justify-center text-gray-600 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
                               >
                                 <Minus size={12} />
                               </button>
@@ -160,29 +174,31 @@ const Cart = () => {
                                 aria-label="Increase quantity"
                                 disabled={item.quantity >= 99}
                                 onClick={() =>
-                                  updateQuantity(item.productId, item.quantity + 1)
+                                  updateQuantity(
+                                    item.cartItemId,
+                                    item.quantity + 1
+                                  )
                                 }
-                                className="flex h-8 w-8 cursor-pointer items-center justify-center bg-black text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-40"
+                                className="flex h-8 w-8 items-center justify-center bg-black text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-40"
                               >
                                 <Plus size={12} />
                               </button>
+
                             </div>
                           </div>
                         </td>
 
-                        {/* Item Subtotal */}
                         <td className="px-4 py-4 text-right font-bold text-gray-900">
                           {formatPrice(item.price * item.quantity)}
                         </td>
 
-                        {/* Delete */}
                         <td className="px-4 py-4 text-center">
                           <button
                             type="button"
-                            onClick={() => removeFromCart(item.productId)}
+                            onClick={() => removeFromCart(item.cartItemId)}
                             aria-label={`Delete ${item.name} from cart`}
                             title="Remove"
-                            className="inline-flex cursor-pointer items-center justify-center p-1.5 text-gray-400 transition hover:text-red-600"
+                            className="inline-flex items-center justify-center p-1.5 text-gray-400 transition hover:text-red-600"
                           >
                             <Trash2 size={15} />
                           </button>
@@ -193,11 +209,10 @@ const Cart = () => {
                 </table>
               </div>
 
-              {/* Continue Shopping */}
               <div className="border-t border-gray-200 bg-gray-50 px-4 py-3">
                 <Link
                   href="/products"
-                  className="inline-flex cursor-pointer items-center gap-2 text-xs font-semibold uppercase text-gray-700 transition hover:text-black"
+                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase text-gray-700 transition hover:text-black"
                 >
                   <ArrowLeft size={14} />
                   Continue Shopping
@@ -205,7 +220,6 @@ const Cart = () => {
               </div>
             </section>
 
-            {/* Order Summary */}
             <aside className="w-full border border-gray-200 bg-white p-5 sm:p-6 lg:sticky lg:top-24">
               <h2 className="border-b border-gray-200 pb-3 text-sm font-bold uppercase tracking-wider text-gray-900">
                 Order Summary
@@ -222,9 +236,7 @@ const Cart = () => {
                 <div className="flex items-center justify-between gap-3 text-gray-600">
                   <span>Delivery</span>
                   <span className="text-right font-medium text-gray-900">
-                    {deliveryEstimate === 0
-                      ? "Calculated at checkout"
-                      : formatPrice(deliveryEstimate)}
+                    Calculated at checkout
                   </span>
                 </div>
               </div>
@@ -242,7 +254,7 @@ const Cart = () => {
 
               <Link
                 href="/checkout"
-                className="mt-6 flex h-11 w-full cursor-pointer items-center justify-center gap-2 bg-black px-4 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-gray-800"
+                className="mt-6 flex h-11 w-full items-center justify-center gap-2 bg-black px-4 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-gray-800"
               >
                 Proceed to Checkout
                 <ArrowRight size={15} />
@@ -260,6 +272,7 @@ const Cart = () => {
                 </div>
               </div>
             </aside>
+
           </div>
         )}
       </div>

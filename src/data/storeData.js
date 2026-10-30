@@ -93,6 +93,7 @@ export const products = [
     stock: 20,
     status: "active",
     createdAt: "2026-10-20",
+    soldCount: 150,
     seo: {
       title: "Classic Black T-Shirt | LuxeVibe",
       description:
@@ -118,6 +119,7 @@ export const products = [
     stock: 12,
     status: "active",
     createdAt: "2026-10-25",
+    soldCount: 100,
     seo: {
       title: "Oversized White T-Shirt | TrueHaven",
       description:
@@ -143,6 +145,7 @@ export const products = [
     stock: 8,
     status: "active",
     createdAt: "2026-10-27",
+    soldCount: 50,
     seo: {
       title: "Premium Navy Polo | HorizonEdge",
       description:
@@ -168,6 +171,8 @@ export const products = [
     stock: 15,
     status: "active",
     createdAt: "2026-10-26",
+    isFeatured: true,
+    soldCount: 180,
     seo: {
       title: "Casual Cotton Shirt | EcoSphere",
       description:
@@ -193,6 +198,7 @@ export const products = [
     stock: 10,
     status: "active",
     createdAt: "2026-10-28",
+    soldCount: 250,
     seo: {
       title: "Women's Casual Dress | LuxeVibe",
       description:
@@ -218,6 +224,7 @@ export const products = [
     stock: 0,
     status: "active",
     createdAt: "2026-10-22",
+    soldCount: 200,
     seo: {
       title: "Women's Crop Top | NovaCrest",
       description:
@@ -243,6 +250,7 @@ export const products = [
     stock: 7,
     status: "active",
     createdAt: "2026-10-24",
+    soldCount: 210,
     seo: {
       title: "Classic Women's Jeans | TrueHaven",
       description:
@@ -268,6 +276,7 @@ export const products = [
     stock: 5,
     status: "active",
     createdAt: "2026-10-29",
+    soldCount: 80,
     seo: {
       title: "Minimal Everyday Bag | VertexCore",
       description:
