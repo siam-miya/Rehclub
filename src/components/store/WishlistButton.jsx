@@ -1,11 +1,14 @@
 "use client";
 
+import React from "react";
 import { FaHeart } from "react-icons/fa";
 import { useStore } from "@/stores/useStore";
 
-export default function WishlistButton({ product }) {
+const WishlistButton = ({ product }) => {
   const isWishlisted = useStore((state) =>
-    state.wishlist.some((item) => item.id === product.id)
+    state.wishlist.some(
+      (item) => String(item.id) === String(product.id)
+    )
   );
 
   const toggleWishlist = useStore(
@@ -20,11 +23,15 @@ export default function WishlistButton({ product }) {
         isWishlisted ? "Remove from wishlist" : "Add to wishlist"
       }
       aria-pressed={isWishlisted}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white shadow-sm transition duration-200 hover:bg-gray-100 sm:h-10 sm:w-10"
     >
       <FaHeart
-        className={isWishlisted ? "text-red-500" : "text-gray-500"}
+        className={`text-[12px] transition-colors duration-200 sm:text-sm ${
+          isWishlisted ? "text-red-500" : "text-gray-500"
+        }`}
       />
     </button>
   );
-}
+};
+
+export default WishlistButton;

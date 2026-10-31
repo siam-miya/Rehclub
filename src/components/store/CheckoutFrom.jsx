@@ -14,9 +14,9 @@ const initialForm = {
 };
 
 const inputClass =
-  "mt-2 h-12 w-full border border-gray-300 bg-white px-3 text-sm text-gray-900 outline-none transition focus:border-black focus:ring-1 focus:ring-black";
+  "mt-2 h-12 w-full min-w-0 border border-gray-300 bg-white px-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-black focus:ring-1 focus:ring-black";
 
-const labelClass = "block text-sm font-medium text-gray-800";
+const labelClass = "block text-xs font-semibold text-gray-800 sm:text-sm";
 
 const deliveryOptions = [
   {
@@ -89,19 +89,27 @@ const CheckoutFrom = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-7">
+    <form onSubmit={handleSubmit} className="min-w-0 space-y-8 sm:space-y-10">
+
+      {/* Customer Information */}
       <section>
-        <div className="mb-5 border-b border-gray-200 pb-4">
-          <h2 className="text-xl font-semibold text-gray-950">
+        <div className="mb-6 border-b border-gray-200 pb-4">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">
+            Step 01
+          </p>
+
+          <h2 className="text-lg font-bold text-gray-950 sm:text-xl">
             Customer Information
           </h2>
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-xs leading-5 text-gray-500 sm:text-sm">
             Enter your details for delivery.
           </p>
         </div>
 
-        <div className="space-y-5">
+        <div className="grid min-w-0 grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2">
+
+          {/* Full Name */}
           <div>
             <label htmlFor="name" className={labelClass}>
               Full Name <span className="text-red-600">*</span>
@@ -121,6 +129,7 @@ const CheckoutFrom = () => {
             />
           </div>
 
+          {/* Phone */}
           <div>
             <label htmlFor="phone" className={labelClass}>
               Phone Number <span className="text-red-600">*</span>
@@ -141,10 +150,11 @@ const CheckoutFrom = () => {
             />
           </div>
 
-          <div>
+          {/* Email */}
+          <div className="sm:col-span-2">
             <label htmlFor="email" className={labelClass}>
               Gmail / Email Address{" "}
-              <span className="text-gray-400">(Optional)</span>
+              <span className="font-normal text-gray-400">(Optional)</span>
             </label>
 
             <input
@@ -161,7 +171,7 @@ const CheckoutFrom = () => {
           </div>
 
           {/* Delivery Location */}
-          <div>
+          <div className="sm:col-span-2">
             <p className={labelClass}>
               Delivery Location <span className="text-red-600">*</span>
             </p>
@@ -173,10 +183,10 @@ const CheckoutFrom = () => {
                 return (
                   <label
                     key={option.value}
-                    className={`flex cursor-pointer items-center justify-between border p-4 transition ${
+                    className={`flex min-h-[82px] cursor-pointer items-center justify-between gap-3 border p-4 transition duration-200 ${
                       selected
                         ? "border-black bg-black text-white"
-                        : "border-gray-300 bg-white text-gray-800 hover:border-black"
+                        : "border-gray-200 bg-white text-gray-800 hover:border-black"
                     }`}
                   >
                     <input
@@ -188,7 +198,7 @@ const CheckoutFrom = () => {
                       className="sr-only"
                     />
 
-                    <span>
+                    <span className="min-w-0">
                       <span className="block text-sm font-semibold">
                         {option.label}
                       </span>
@@ -203,27 +213,14 @@ const CheckoutFrom = () => {
                     </span>
 
                     <span
-                      className={`flex h-5 w-5 items-center justify-center border ${
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center border ${
                         selected
                           ? "border-white bg-white text-black"
-                          : "border-gray-400"
+                          : "border-gray-300"
                       }`}
                     >
                       {selected && (
-                        <svg
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          className="h-4 w-4"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="m4 10 4 4 8-8"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <span className="text-xs font-bold">✓</span>
                       )}
                     </span>
                   </label>
@@ -232,7 +229,8 @@ const CheckoutFrom = () => {
             </div>
           </div>
 
-          <div>
+          {/* Address */}
+          <div className="sm:col-span-2">
             <label htmlFor="address" className={labelClass}>
               Full Delivery Address{" "}
               <span className="text-red-600">*</span>
@@ -245,16 +243,17 @@ const CheckoutFrom = () => {
               value={form.address}
               onChange={handleChange}
               placeholder="House, road, area, city and postal details"
-              className="mt-2 min-h-28 w-full resize-y border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+              className="mt-2 min-h-28 w-full resize-y border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-black focus:ring-1 focus:ring-black"
               required
               maxLength={500}
             />
           </div>
 
-          <div>
+          {/* Order Note */}
+          <div className="sm:col-span-2">
             <label htmlFor="note" className={labelClass}>
               Order Note{" "}
-              <span className="text-gray-400">(Optional)</span>
+              <span className="font-normal text-gray-400">(Optional)</span>
             </label>
 
             <textarea
@@ -263,33 +262,49 @@ const CheckoutFrom = () => {
               value={form.note}
               onChange={handleChange}
               placeholder="Any special instructions for your order?"
-              className="mt-2 min-h-24 w-full resize-y border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition focus:border-black focus:ring-1 focus:ring-black"
+              className="mt-2 min-h-24 w-full resize-y border border-gray-300 bg-white px-3 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-black focus:ring-1 focus:ring-black"
               maxLength={500}
             />
           </div>
         </div>
       </section>
 
+      {/* Payment Method */}
       <section>
-        <div className="border border-gray-200 p-4">
-          <p className="text-sm font-semibold text-gray-950">
+        <div className="mb-5 border-b border-gray-200 pb-4">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">
+            Step 02
+          </p>
+
+          <h2 className="text-lg font-bold text-gray-950 sm:text-xl">
             Payment Method
-          </p>
+          </h2>
+        </div>
 
-          <p className="mt-2 text-sm text-gray-600">
-            Cash on Delivery
-          </p>
+        <div className="border border-black bg-gray-50/60 p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border border-black bg-black text-white">
+              <span className="text-xs">✓</span>
+            </span>
 
-          <p className="mt-1 text-xs text-gray-500">
-            Pay when your order arrives.
-          </p>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-gray-950">
+                Cash on Delivery
+              </p>
+
+              <p className="mt-1 text-xs leading-5 text-gray-500 sm:text-sm">
+                Pay when your order arrives at your doorstep.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
+      {/* Messages */}
       {error && (
         <p
           role="alert"
-          className="border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+          className="border border-red-200 bg-red-50 p-3 text-xs leading-5 text-red-700 sm:p-4 sm:text-sm"
         >
           {error}
         </p>
@@ -298,24 +313,27 @@ const CheckoutFrom = () => {
       {message && (
         <p
           role="status"
-          className="border border-green-200 bg-green-50 p-4 text-sm text-green-800"
+          className="border border-green-200 bg-green-50 p-3 text-xs leading-5 text-green-800 sm:p-4 sm:text-sm"
         >
           {message}
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={cart.length === 0}
-        className="flex min-h-14 w-full cursor-pointer items-center justify-center border border-black bg-black px-6 py-4 text-sm font-semibold text-white transition hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-200 disabled:text-gray-500"
-      >
-        Place Order
-      </button>
+      {/* Submit */}
+      <div>
+        <button
+          type="submit"
+          disabled={cart.length === 0}
+          className="flex min-h-13 w-full cursor-pointer items-center justify-center border border-black bg-black px-6 py-4 text-xs font-semibold uppercase tracking-wider text-white transition duration-300 hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-200 disabled:text-gray-500 sm:min-h-14 sm:text-sm"
+        >
+          Place Order
+        </button>
 
-      <p className="text-center text-xs leading-5 text-gray-500">
-        Please make sure your name, phone number and delivery address are
-        correct.
-      </p>
+        <p className="mt-4 text-center text-[10px] leading-5 text-gray-400 sm:text-xs">
+          Please make sure your name, phone number and delivery address are
+          correct.
+        </p>
+      </div>
     </form>
   );
 };

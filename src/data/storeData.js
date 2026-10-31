@@ -93,6 +93,7 @@ export const products = [
     stock: 20,
     status: "active",
     createdAt: "2026-10-20",
+    isNewArrival: true,
     soldCount: 150,
     seo: {
       title: "Classic Black T-Shirt | LuxeVibe",
@@ -119,6 +120,7 @@ export const products = [
     stock: 12,
     status: "active",
     createdAt: "2026-10-25",
+    isNewArrival: true,
     soldCount: 100,
     seo: {
       title: "Oversized White T-Shirt | TrueHaven",
@@ -145,6 +147,7 @@ export const products = [
     stock: 8,
     status: "active",
     createdAt: "2026-10-27",
+    isNewArrival: true,
     soldCount: 50,
     seo: {
       title: "Premium Navy Polo | HorizonEdge",
@@ -172,6 +175,7 @@ export const products = [
     status: "active",
     createdAt: "2026-10-26",
     isFeatured: true,
+    isNewArrival: true,
     soldCount: 180,
     seo: {
       title: "Casual Cotton Shirt | EcoSphere",
@@ -198,6 +202,7 @@ export const products = [
     stock: 10,
     status: "active",
     createdAt: "2026-10-28",
+    isNewArrival: true,
     soldCount: 250,
     seo: {
       title: "Women's Casual Dress | LuxeVibe",
@@ -224,6 +229,7 @@ export const products = [
     stock: 0,
     status: "active",
     createdAt: "2026-10-22",
+    isNewArrival: false,
     soldCount: 200,
     seo: {
       title: "Women's Crop Top | NovaCrest",
@@ -250,6 +256,7 @@ export const products = [
     stock: 7,
     status: "active",
     createdAt: "2026-10-24",
+    isNewArrival: false,
     soldCount: 210,
     seo: {
       title: "Classic Women's Jeans | TrueHaven",
@@ -276,6 +283,7 @@ export const products = [
     stock: 5,
     status: "active",
     createdAt: "2026-10-29",
+    isNewArrival: true,
     soldCount: 80,
     seo: {
       title: "Minimal Everyday Bag | VertexCore",
@@ -327,3 +335,33 @@ export const getProductsByCategoryPath = (path = []) =>
       (slug, index) => product.categoryPath[index] === slug
     );
   });
+
+// Get New Arrival products uploaded within the last 30 days.
+export const getNewArrivalProducts = () => {
+  const now = Date.now();
+  const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+
+  return products
+    .filter((product) => {
+      if (
+        product.status !== "active" ||
+        product.isNewArrival !== true ||
+        !product.createdAt
+      ) {
+        return false;
+      }
+
+      const createdAt = new Date(product.createdAt).getTime();
+
+      if (Number.isNaN(createdAt)) return false;
+
+      const age = now - createdAt;
+
+      return age >= 0 && age <= thirtyDays;
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() -
+        new Date(a.createdAt).getTime()
+    );
+};

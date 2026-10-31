@@ -18,19 +18,19 @@ import { FiMail, FiPackage, FiArrowUpRight } from "react-icons/fi";
 
 const Footer = () => {
   const shopLinks = [
-    { label: "Men", href: "/categories/men" },
-    { label: "Women", href: "/categories/women" },
-    { label: "New Arrivals", href: "/categories/new-arrivals" },
-    { label: "Best Sellers", href: "/categories/best-sellers" },
-    { label: "Sale", href: "/categories/sale" },
+    { label: "Men", href: "/products/categories/men" },
+    { label: "Women", href: "/products/categories/women" },
+    { label: "New Arrivals", href: "/products" },
+    { label: "Best Sellers", href: "/products" },
+    { label: "Sale", href: "/products" },
   ];
 
   const supportLinks = [
     { label: "Track Your Order", href: "/track-order" },
-    { label: "Shipping & Returns", href: "/shipping-returns" },
+    { label: "Shipping & Returns", href: "/" },
     { label: "FAQs", href: "/faq" },
     { label: "Contact Us", href: "/contact" },
-    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Privacy Policy", href: "/privacy" },
   ];
 
   const socialLinks = [
@@ -71,11 +71,12 @@ const Footer = () => {
 
   return (
     <footer className="w-full overflow-hidden bg-black text-white">
-      {/* Main Footer - mx-auto যুক্ত করা হয়েছে যাতে বড় স্ক্রিনে একদম মাঝে থাকে */}
-      <div className="container mx-auto w-full px-4 py-12 sm:px-6 sm:py-14 md:px-8 lg:px-10 lg:py-16 xl:px-12">
-        <div className="grid grid-cols-1 gap-13 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-12 lg:gap-x-12 xl:gap-x-36">
+      <div className="container w-full px-4 py-10 sm:px-6 sm:py-12 md:px-8 lg:px-10 lg:py-16 xl:px-12">
+        {/* Main Footer */}
+        <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-12 lg:gap-x-8 xl:gap-x-12">
+
           {/* Brand */}
-          <div className="min-w-0 sm:col-span-2 lg:col-span-4">
+          <div className="col-span-2 min-w-0 sm:col-span-2 lg:col-span-4">
             <Link
               href="/"
               aria-label="REHCLUB homepage"
@@ -86,17 +87,17 @@ const Footer = () => {
                 alt="REHCLUB"
                 width={190}
                 height={60}
-                className="h-auto max-h-[60px] w-auto max-w-full object-contain object-left"
+                className="h-auto max-h-[55px] w-auto max-w-full object-contain object-left sm:max-h-[60px]"
               />
             </Link>
 
-            <p className="mt-5 max-w-sm text-sm leading-7 text-neutral-400">
+            <p className="mt-4 max-w-sm text-xs leading-6 text-neutral-400 sm:mt-5 sm:text-sm sm:leading-7">
               Discover modern essentials and timeless fashion designed for
               everyday confidence. Find your style, make it your own.
             </p>
 
             {/* Social Links */}
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-5 flex items-center gap-3 sm:mt-6">
               {socialLinks.map((social) => {
                 const SocialIcon = social.icon;
 
@@ -107,9 +108,9 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex h-10 w-10 items-center justify-center border border-white/15 text-neutral-300 transition duration-300 hover:border-white hover:bg-white hover:text-black"
+                    className="flex h-9 w-9 items-center justify-center border border-white/15 text-neutral-300 transition duration-300 hover:border-white hover:bg-white hover:text-black sm:h-10 sm:w-10"
                   >
-                    <SocialIcon size={17} />
+                    <SocialIcon size={16} />
                   </a>
                 );
               })}
@@ -118,16 +119,16 @@ const Footer = () => {
 
           {/* Shop */}
           <div className="min-w-0 lg:col-span-2">
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[2px] text-white">
+            <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[1.5px] text-white sm:mb-5 sm:text-xs sm:tracking-[2px]">
               Shop
             </h3>
 
             <ul className="space-y-3">
               {shopLinks.map((item) => (
-                <li key={item.href}>
+                <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="inline-block text-sm text-neutral-400 transition duration-200 hover:translate-x-1 hover:text-white"
+                    className="inline-block text-xs text-neutral-400 transition duration-200 hover:translate-x-1 hover:text-white sm:text-sm"
                   >
                     {item.label}
                   </Link>
@@ -138,7 +139,7 @@ const Footer = () => {
 
           {/* Customer Care */}
           <div className="min-w-0 lg:col-span-3">
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[2px] text-white">
+            <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[1.5px] text-white sm:mb-5 sm:text-xs sm:tracking-[2px]">
               Customer Care
             </h3>
 
@@ -147,7 +148,7 @@ const Footer = () => {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="inline-block text-sm text-neutral-400 transition duration-200 hover:translate-x-1 hover:text-white"
+                    className="inline-block text-xs text-neutral-400 transition duration-200 hover:translate-x-1 hover:text-white sm:text-sm"
                   >
                     {item.label}
                   </Link>
@@ -157,23 +158,23 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div className="min-w-0 lg:col-span-3">
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[2px] text-white">
+          <div className="col-span-2 min-w-0 sm:col-span-2 lg:col-span-3">
+            <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[1.5px] text-white sm:mb-5 sm:text-xs sm:tracking-[2px]">
               Get In Touch
             </h3>
 
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-sm text-neutral-400">
+              <li className="flex items-start gap-3 text-xs text-neutral-400 sm:text-sm">
                 <FaMapMarkerAlt
-                  size={16}
+                  size={15}
                   className="mt-1 shrink-0 text-neutral-200"
                 />
                 <span>Dhaka, Bangladesh</span>
               </li>
 
-              <li className="flex items-center gap-3 text-sm text-neutral-400">
+              <li className="flex items-center gap-3 text-xs text-neutral-400 sm:text-sm">
                 <FaPhoneAlt
-                  size={15}
+                  size={14}
                   className="shrink-0 text-neutral-200"
                 />
                 <a
@@ -184,9 +185,9 @@ const Footer = () => {
                 </a>
               </li>
 
-              <li className="flex items-start gap-3 text-sm text-neutral-400">
+              <li className="flex items-start gap-3 text-xs text-neutral-400 sm:text-sm">
                 <FiMail
-                  size={17}
+                  size={16}
                   className="mt-0.5 shrink-0 text-neutral-200"
                 />
                 <a
@@ -198,34 +199,34 @@ const Footer = () => {
               </li>
             </ul>
 
-            <div className="mt-6 flex items-center gap-2 text-xs text-neutral-500">
-              <FaTruck size={16} className="shrink-0" />
+            <div className="mt-5 flex items-center gap-2 text-[11px] text-neutral-500 sm:mt-6 sm:text-xs">
+              <FaTruck size={15} className="shrink-0" />
               <span>Delivery across Bangladesh</span>
             </div>
           </div>
         </div>
 
-        {/* Trust Features - এখানেও পারফেক্ট স্পেসিং ও জাস্টিফাই দেওয়া হয়েছে */}
-        <div className="mt-12 ml-60 grid grid-cols-1 gap-5 border-y border-white/10 py-7 sm:grid-cols-3 sm:gap-6 lg:mt-16 lg:py-8">
+        {/* Trust Features */}
+        <div className="mt-10 grid grid-cols-1 gap-5 border-y border-white/10 py-6 sm:mt-12 sm:grid-cols-3 sm:gap-4 sm:py-7 lg:mt-14 lg:py-8">
           {trustItems.map((item) => {
             const TrustIcon = item.icon;
 
             return (
               <div
                 key={item.title}
-                className="flex min-w-0 items-center gap-3"
+                className="flex min-w-0 items-center gap-3 sm:justify-center lg:justify-start"
               >
                 <TrustIcon
-                  size={21}
-                  className="shrink-0 text-neutral-300"
+                  size={20}
+                  className="shrink-0 text-neutral-300 sm:size-[21px]"
                 />
 
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-white">
+                  <p className="text-xs font-medium text-white sm:text-sm">
                     {item.title}
                   </p>
 
-                  <p className="mt-1 text-xs leading-5 text-neutral-500">
+                  <p className="mt-1 text-[11px] leading-5 text-neutral-500 sm:text-xs">
                     {item.description}
                   </p>
                 </div>
@@ -235,16 +236,13 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="flex flex-col gap-4 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 pt-6 text-[11px] text-neutral-500 sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:text-xs">
           <p>
             © {new Date().getFullYear()} REHCLUB. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <Link
-              href="/terms"
-              className="transition hover:text-white"
-            >
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-5">
+            <Link href="/terms" className="transition hover:text-white">
               Terms & Conditions
             </Link>
 
@@ -261,7 +259,7 @@ const Footer = () => {
               className="inline-flex items-center gap-1 transition hover:text-white"
             >
               Contact
-              <FiArrowUpRight size={14} />
+              <FiArrowUpRight size={13} />
             </Link>
           </div>
         </div>

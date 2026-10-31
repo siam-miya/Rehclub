@@ -22,3 +22,23 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+
+
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 56px;
+  }
+}
+
